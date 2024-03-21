@@ -1,0 +1,24 @@
+name: Merge Staging to Develop
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge staging to develop
+        run: |
+          git config --local user.email "reddyrajashekarlucky14@gmail.com"
+          git config --local user.name "Rajashekar16"
+
+          git fetch origin develop
+          git checkout develop
+          git merge --no-ff origin/staging -m "Merge changes from staging"
+          git push origin develop
